@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
+  <div class="container">
+  <a class="navbar-brand" href="#">Movie Search</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBrand" aria-controls="navBrand" aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navBrand">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Popular</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" name="movieTitle" placeholder="Search" aria-label="Search" [(ngModel)]="movieTitle">
+      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+    </form>
+  </div>
+</div>
+</nav>
+
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron bg-light">
+    <div class="container">
+      <div>{{movieTitle}}</div>
+      <h1 class="display-5 text-center">Welcome to the movie database search engine</h1>
+      <p class="text-center">You can search your favourite movies by their name and get detail information about the movie.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4 col-sm-4 text-center" *ngFor="let movie of movies.results | searchFilter:movieTitle">
+        <!--Panel-->
+        <div class="card text-center mb-5" style="width: 22rem;">
+          <div class="card-header bg-success text-white">
+            {{movie.title | uppercase }}
+          </div>
+          <div class="card-body">
+            <img src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" alt="movie poster">
+            <p class="card-text text-left">{{movie.overview}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item"> {{movie.vote_average}} <app-star [rating]="movie.vote_average"></app-star> </li>
+              <li class="list-group-item">Release date: {{movie.release_date }} </li>
+              <li class="list-group-item">{{movie.genre_ids[0]}} </li>
+            </ul>
+          <div class="card bg-success text-white">
+            <a class="btn btn-lg btn-block btn-success">Go somewhere</a>
+          </div>
+        </div>
+        <!--/.Panel-->
+      </div>
+      <!-- /col -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+
+
+</main>
+
+<footer class="container">
+  <p>&copy; Company 2017</p>
+</footer>
